@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-lavande-50 text-gray-800;
+    }
+}
+
+@layer components {
+
+    /* Boutons bienveillants */
+    .btn-primary {
+        @apply bg-mauve-500 hover:bg-mauve-600 text-white font-medium py-3 px-6 rounded-2xl shadow-pastel transition-all duration-200 ease-in-out hover:shadow-pastel-lg hover:scale-105;
+    }
+
+    .btn-secondary {
+        @apply bg-rosepoudre-200 hover:bg-rosepoudre-300 text-mauve-700 font-medium py-3 px-6 rounded-2xl shadow-pastel transition-all duration-200 ease-in-out;
+    }
+
+    .btn-ghost {
+        @apply bg-transparent hover:bg-lavande-200 text-mauve-600 font-medium py-2 px-4 rounded-xl transition-all duration-200 ease-in-out;
+    }
+
+    /* Cartes douces */
+    .card {
+        @apply bg-white rounded-2xl shadow-pastel p-6 transition-all duration-200 ease-in-out hover:shadow-pastel-lg;
+    }
+
+    .card-hover {
+        @apply card hover:scale-105 cursor-pointer;
+    }
+
+    /* Inputs apaisants */
+    .input-pastel {
+        @apply w-full px-4 py-3 rounded-xl border-2 border-lavande-200 focus:border-mauve-400 focus:ring-2 focus:ring-mauve-200 transition-all duration-200 ease-in-out bg-white text-gray-800 placeholder-gray-400;
+    }
+
+    /* Checkbox personnalisé */
+    .checkbox-pastel {
+        @apply w-5 h-5 text-mauve-500 bg-white border-2 border-lavande-300 rounded focus:ring-2 focus:ring-mauve-200 transition-all duration-200;
+    }
+
+    /* Badges de catégories */
+    .badge {
+        @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+    }
+
+    .badge-work {
+        @apply bg-mauve-100 text-mauve-700;
+    }
+
+    .badge-wellness {
+        @apply bg-rosepoudre-100 text-rosepoudre-700;
+    }
+
+    .badge-health {
+        @apply bg-lavande-100 text-lavande-600;
+    }
+
+    .badge-other {
+        @apply bg-grisdoux-100 text-grisdoux-600;
+    }
+}
+
+@layer utilities {
+    .transition-smooth {
+        @apply transition-all ease-in-out duration-200;
+    }
+
+    .gradient-pastel {
+        background: linear-gradient(135deg, #F8F8FF 0%, #F2D7EE 100%);
+    }
+
+    .text-shadow-soft {
+        text-shadow: 0 2px 4px rgba(200, 162, 200, 0.1);
+    }
+}
