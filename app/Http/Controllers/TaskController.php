@@ -41,8 +41,11 @@ class TaskController extends Controller
                 ];
             });
 
+        $taskTemplates = auth()->user()->taskTemplates()->get();
+
         return Inertia::render('Dashboard', [
             'tasks' => $tasks,
+            'taskTemplates' => $taskTemplates,
         ]);
     }
 

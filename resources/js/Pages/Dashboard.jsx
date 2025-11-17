@@ -7,7 +7,7 @@ import AddTaskModal from '@/Components/AddTaskModal';
 import EditTaskModal from '@/Components/EditTaskModal';
 import CalendarView from '@/Components/CalendarView';
 
-export default function Dashboard({ auth, tasks = [] }) {
+export default function Dashboard({ auth, tasks = [], taskTemplates = [] }) {
     const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [taskToEdit, setTaskToEdit] = useState(null);
@@ -165,7 +165,11 @@ export default function Dashboard({ auth, tasks = [] }) {
                 </div>
             </div>
 
-            <AddTaskModal show={showAddModal} onClose={() => setShowAddModal(false)} />
+            <AddTaskModal
+                show={showAddModal}
+                onClose={() => setShowAddModal(false)}
+                taskTemplates={taskTemplates}
+            />
             <EditTaskModal task={taskToEdit} show={showEditModal} onClose={handleCloseEditModal} />
         </AuthenticatedLayout>
     );

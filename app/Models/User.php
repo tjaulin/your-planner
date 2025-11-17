@@ -61,4 +61,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Note::class);
     }
+
+    public function taskTemplates(): HasMany
+    {
+        return $this->hasMany(TaskTemplate::class);
+    }
 }
