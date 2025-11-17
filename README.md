@@ -1,24 +1,6 @@
-# 🌸 Your Planner - Ton compagnon bienveillant au quotidien<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
-
-
-<div align="center"><p align="center">
-
-  <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-
-  ![Your Planner](https://img.shields.io/badge/Your_Planner-v1.0-C8A2C8?style=for-the-badge)<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-
-  ![Laravel](https://img.shields.io/badge/Laravel-11-FF2D20?style=for-the-badge&logo=laravel)<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-
-  ![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-
-  ![TailwindCSS](https://img.shields.io/badge/Tailwind-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)</p>
-
-
-
-  **Une application d'organisation personnelle douce et bienveillante** 💜## About Laravel
-
+# 🌸 Your Planner - Ton compagnon bienveillant au quotidien
   
+## About Laravel  
 
 </div>Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
