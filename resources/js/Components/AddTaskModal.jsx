@@ -5,20 +5,37 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 
 export default function AddTaskModal({ show, onClose }) {
+    // Obtenir la date et l'heure actuelle
+    const now = new Date();
+    const todayDate = now.toISOString().split('T')[0];
+    const currentTime = now.toTimeString().slice(0, 5);
+
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
         description: '',
         category: 'Autre',
         priority: 'Moyenne',
         color: '#C8A2C8',
-        start_date: '',
-        due_date: '',
+        start_date: todayDate,
+        start_time: currentTime,
+        due_date: todayDate,
+        end_time: currentTime,
+        all_day: false,
         recurrence: 'Aucune',
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Si "Toute la journée" est coché, ne pas envoyer les heures
+        const dataToSubmit = { ...data };
+        if (data.all_day) {
+            dataToSubmit.start_time = null;
+            dataToSubmit.end_time = null;
+        }
+
         post('/tasks', {
+            data: dataToSubmit,
             preserveScroll: true,
             onSuccess: () => {
                 reset();
@@ -91,6 +108,18 @@ export default function AddTaskModal({ show, onClose }) {
                         </div>
                     </div>
 
+                    {/* Toggle Toute la journée */}
+                    <div className="flex items-center gap-2">
+                        <input
+                            id="all_day"
+                            type="checkbox"
+                            className="checkbox-pastel"
+                            checked={data.all_day}
+                            onChange={(e) => setData('all_day', e.target.checked)}
+                        />
+                        <InputLabel htmlFor="all_day" value="Toute la journée" className="!mb-0 cursor-pointer" />
+                    </div>
+
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
                         <div>
                             <InputLabel htmlFor="start_date" value="Date de début" />
@@ -104,7 +133,7 @@ export default function AddTaskModal({ show, onClose }) {
                         </div>
 
                         <div>
-                            <InputLabel htmlFor="due_date" value="Date d'échéance" />
+                            <InputLabel htmlFor="due_date" value="Date de fin" />
                             <TextInput
                                 id="due_date"
                                 type="date"
@@ -114,6 +143,33 @@ export default function AddTaskModal({ show, onClose }) {
                             />
                         </div>
                     </div>
+
+                    {/* Champs heures - cachés si "Toute la journée" est coché */}
+                    {!data.all_day && (
+                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+                            <div>
+                                <InputLabel htmlFor="start_time" value="Heure de début" />
+                                <TextInput
+                                    id="start_time"
+                                    type="time"
+                                    className="mt-1 input-pastel"
+                                    value={data.start_time}
+                                    onChange={(e) => setData('start_time', e.target.value)}
+                                />
+                            </div>
+
+                            <div>
+                                <InputLabel htmlFor="end_time" value="Heure de fin" />
+                                <TextInput
+                                    id="end_time"
+                                    type="time"
+                                    className="mt-1 input-pastel"
+                                    value={data.end_time}
+                                    onChange={(e) => setData('end_time', e.target.value)}
+                                />
+                            </div>
+                        </div>
+                    )}
 
                     <div>
                         <InputLabel htmlFor="recurrence" value="Récurrence" />

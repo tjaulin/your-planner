@@ -15,7 +15,10 @@ class Task extends Model
         'priority',
         'color',
         'start_date',
+        'start_time',
         'due_date',
+        'end_time',
+        'all_day',
         'recurrence',
         'is_completed',
         'completed_at',
@@ -24,6 +27,7 @@ class Task extends Model
     protected $casts = [
         'start_date' => 'date',
         'due_date' => 'date',
+        'all_day' => 'boolean',
         'is_completed' => 'boolean',
         'completed_at' => 'datetime',
     ];

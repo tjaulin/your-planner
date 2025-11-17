@@ -14,22 +14,45 @@ const categoryColors = {
 };
 
 export default function CalendarView({ tasks, onDateClick, onEventClick }) {
-    const events = tasks.map(task => ({
-        id: task.id,
-        title: task.title,
-        start: task.start_date || task.due_date,
-        end: task.due_date,
-        backgroundColor: task.is_completed ? '#9CA3AF' : categoryColors[task.category],
-        borderColor: task.is_completed ? '#6B7280' : categoryColors[task.category],
-        textColor: '#FFFFFF',
-        extendedProps: {
-            description: task.description,
-            category: task.category,
-            priority: task.priority,
-            is_completed: task.is_completed,
-            task: task,
-        },
-    }));
+    const events = tasks.map(task => {
+        let start, end, allDay;
+
+        // Déterminer si c'est un événement toute la journée
+        const hasTimeFields = task.start_time && task.end_time;
+        const shouldShowAsAllDay = task.all_day || !hasTimeFields;
+
+        if (shouldShowAsAllDay) {
+            // Événement toute la journée
+            start = task.start_date || task.due_date;
+            end = task.due_date || task.start_date;
+            allDay = true;
+        } else {
+            // Événement avec horaires spécifiques
+            const startDate = task.start_date || task.due_date;
+            const endDate = task.due_date || task.start_date;
+            start = `${startDate}T${task.start_time}`;
+            end = `${endDate}T${task.end_time}`;
+            allDay = false;
+        }
+
+        return {
+            id: task.id,
+            title: task.title,
+            start: start,
+            end: end,
+            allDay: allDay,
+            backgroundColor: task.is_completed ? '#9CA3AF' : categoryColors[task.category],
+            borderColor: task.is_completed ? '#6B7280' : categoryColors[task.category],
+            textColor: '#FFFFFF',
+            extendedProps: {
+                description: task.description,
+                category: task.category,
+                priority: task.priority,
+                is_completed: task.is_completed,
+                task: task,
+            },
+        };
+    });
 
     const handleDateClick = (info) => {
         if (onDateClick) {
@@ -173,21 +196,22 @@ export default function CalendarView({ tasks, onDateClick, onEventClick }) {
                 initialView="dayGridMonth"
                 locale={frLocale}
                 headerToolbar={{
-                    left: 'prev,next',
+                    left: 'prev,next today',
                     center: 'title',
-                    right: 'today dayGridMonth,listWeek',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
                 }}
                 events={events}
                 dateClick={handleDateClick}
                 eventClick={handleEventClick}
                 height="auto"
                 eventDisplay="block"
-                displayEventTime={false}
+                displayEventTime={true}
                 fixedWeekCount={false}
                 buttonText={{
                     today: "Aujourd'hui",
                     month: 'Mois',
                     week: 'Semaine',
+                    day: 'Jour',
                     list: 'Liste',
                 }}
                 dayMaxEvents={2}

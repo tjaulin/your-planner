@@ -20,7 +20,10 @@ return new class extends Migration
             $table->enum('priority', ['Faible', 'Moyenne', 'Haute'])->default('Moyenne');
             $table->string('color')->default('#C8A2C8');
             $table->date('start_date')->nullable();
+            $table->time('start_time')->nullable();
             $table->date('due_date')->nullable();
+            $table->time('end_time')->nullable();
+            $table->boolean('all_day')->default(false);
             $table->enum('recurrence', ['Aucune', 'Quotidienne', 'Hebdomadaire', 'Mensuelle'])->default('Aucune');
             $table->boolean('is_completed')->default(false);
             $table->timestamp('completed_at')->nullable();

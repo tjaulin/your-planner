@@ -12,7 +12,10 @@ export default function EditTaskModal({ task, show, onClose }) {
         priority: task?.priority || 'Moyenne',
         color: task?.color || '#C8A2C8',
         start_date: task?.start_date || '',
+        start_time: task?.start_time || '',
         due_date: task?.due_date || '',
+        end_time: task?.end_time || '',
+        all_day: task?.all_day ?? false,
         recurrence: task?.recurrence || 'Aucune',
     });
 
@@ -25,7 +28,10 @@ export default function EditTaskModal({ task, show, onClose }) {
                 priority: task.priority || 'Moyenne',
                 color: task.color || '#C8A2C8',
                 start_date: task.start_date || '',
+                start_time: task.start_time || '',
                 due_date: task.due_date || '',
+                end_time: task.end_time || '',
+                all_day: task.all_day ?? false,
                 recurrence: task.recurrence || 'Aucune',
             });
         }
@@ -33,7 +39,16 @@ export default function EditTaskModal({ task, show, onClose }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Si "Toute la journée" est coché, ne pas envoyer les heures
+        const dataToSubmit = { ...data };
+        if (data.all_day) {
+            dataToSubmit.start_time = null;
+            dataToSubmit.end_time = null;
+        }
+
         patch(`/tasks/${task.id}`, {
+            data: dataToSubmit,
             preserveScroll: true,
             onSuccess: () => {
                 onClose();
@@ -107,6 +122,18 @@ export default function EditTaskModal({ task, show, onClose }) {
                         </div>
                     </div>
 
+                    <div>
+                        <label className="flex items-center space-x-2">
+                            <input
+                                type="checkbox"
+                                checked={data.all_day}
+                                onChange={(e) => setData('all_day', e.target.checked)}
+                                className="rounded border-mauve-300 text-mauve-600 focus:ring-mauve-500"
+                            />
+                            <span className="text-sm text-gray-700">Toute la journée</span>
+                        </label>
+                    </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div>
                             <InputLabel htmlFor="start_date" value="Date de début" />
@@ -120,7 +147,7 @@ export default function EditTaskModal({ task, show, onClose }) {
                         </div>
 
                         <div>
-                            <InputLabel htmlFor="due_date" value="Date d'échéance" />
+                            <InputLabel htmlFor="due_date" value="Date de fin" />
                             <TextInput
                                 id="due_date"
                                 type="date"
@@ -130,6 +157,32 @@ export default function EditTaskModal({ task, show, onClose }) {
                             />
                         </div>
                     </div>
+
+                    {!data.all_day && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                            <div>
+                                <InputLabel htmlFor="start_time" value="Heure de début" />
+                                <TextInput
+                                    id="start_time"
+                                    type="time"
+                                    className="input-pastel mt-1"
+                                    value={data.start_time}
+                                    onChange={(e) => setData('start_time', e.target.value)}
+                                />
+                            </div>
+
+                            <div>
+                                <InputLabel htmlFor="end_time" value="Heure de fin" />
+                                <TextInput
+                                    id="end_time"
+                                    type="time"
+                                    className="input-pastel mt-1"
+                                    value={data.end_time}
+                                    onChange={(e) => setData('end_time', e.target.value)}
+                                />
+                            </div>
+                        </div>
+                    )}
 
                     <div>
                         <InputLabel htmlFor="recurrence" value="Récurrence" />
