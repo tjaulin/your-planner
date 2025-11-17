@@ -36,27 +36,27 @@ export default function Dashboard({ auth, tasks = [] }) {
     return (
         <AuthenticatedLayout
             header={
-                <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-semibold text-mauve-700">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <h2 className="text-xl sm:text-2xl font-semibold text-mauve-700">
                         Bonjour {auth.user.name} 🌸
                     </h2>
-                    <div className="flex items-center space-x-3">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                         {/* Toggle vue liste/calendrier */}
                         <div className="inline-flex rounded-lg border border-mauve-200 bg-white p-1">
                             <button
                                 onClick={() => setViewMode('list')}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'list'
-                                        ? 'bg-mauve-600 text-white'
-                                        : 'text-mauve-600 hover:bg-mauve-50'
+                                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors ${viewMode === 'list'
+                                    ? 'bg-mauve-600 text-white'
+                                    : 'text-mauve-600 hover:bg-mauve-50'
                                     }`}
                             >
                                 📋 Liste
                             </button>
                             <button
                                 onClick={() => setViewMode('calendar')}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'calendar'
-                                        ? 'bg-mauve-600 text-white'
-                                        : 'text-mauve-600 hover:bg-mauve-50'
+                                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors ${viewMode === 'calendar'
+                                    ? 'bg-mauve-600 text-white'
+                                    : 'text-mauve-600 hover:bg-mauve-50'
                                     }`}
                             >
                                 📅 Calendrier
@@ -64,9 +64,10 @@ export default function Dashboard({ auth, tasks = [] }) {
                         </div>
                         <button
                             onClick={() => setShowAddModal(true)}
-                            className="btn-primary"
+                            className="btn-primary w-full sm:w-auto"
                         >
-                            ✨ Nouvelle tâche
+                            <span className="hidden sm:inline">✨ Nouvelle tâche</span>
+                            <span className="sm:hidden">✨ Ajouter</span>
                         </button>
                     </div>
                 </div>
@@ -74,10 +75,10 @@ export default function Dashboard({ auth, tasks = [] }) {
         >
             <Head title="Mon Planner" />
 
-            <div className="py-8">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="py-4 sm:py-6 lg:py-8">
+                <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
                     {/* Citation du jour */}
-                    <div className="mb-8">
+                    <div className="mb-6 sm:mb-8">
                         <DailyQuote />
                     </div>
 
@@ -90,7 +91,7 @@ export default function Dashboard({ auth, tasks = [] }) {
                     ) : (
                         <>
                             {/* Statistiques douces */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
                                 <div className="card text-center">
                                     <p className="text-3xl mb-2">📋</p>
                                     <p className="text-2xl font-bold text-mauve-600">{todayTasks.length}</p>
@@ -111,20 +112,20 @@ export default function Dashboard({ auth, tasks = [] }) {
                             </div>
 
                             {/* Tâches du jour par catégorie */}
-                            <div className="space-y-8">
+                            <div className="space-y-6 sm:space-y-8">
                                 {Object.entries(tasksByCategory).map(([category, categoryTasks]) => {
                                     if (categoryTasks.length === 0) return null;
 
                                     return (
                                         <div key={category}>
-                                            <h3 className="text-xl font-semibold text-mauve-700 mb-4">
+                                            <h3 className="text-lg sm:text-xl font-semibold text-mauve-700 mb-3 sm:mb-4">
                                                 {category === 'Travail' && '💼'}
                                                 {category === 'Loisir' && '🎨'}
                                                 {category === 'Santé' && '💚'}
                                                 {category === 'Autre' && '✨'}
                                                 {' '}{category}
                                             </h3>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
                                                 {categoryTasks.map(task => (
                                                     <TaskCard key={task.id} task={task} onEdit={handleEditTask} />
                                                 ))}
@@ -134,12 +135,12 @@ export default function Dashboard({ auth, tasks = [] }) {
                                 })}
 
                                 {todayTasks.length === 0 && (
-                                    <div className="card text-center py-12">
-                                        <p className="text-4xl mb-4">🎉</p>
-                                        <p className="text-xl font-semibold text-mauve-700 mb-2">
+                                    <div className="card text-center py-8 sm:py-12">
+                                        <p className="text-3xl sm:text-4xl mb-3 sm:mb-4">🎉</p>
+                                        <p className="text-lg sm:text-xl font-semibold text-mauve-700 mb-2 px-4">
                                             Bravo ! Tu as terminé toutes tes tâches
                                         </p>
-                                        <p className="text-gray-600">
+                                        <p className="text-sm sm:text-base text-gray-600 px-4">
                                             Prends du temps pour toi maintenant 💜
                                         </p>
                                     </div>
@@ -147,11 +148,11 @@ export default function Dashboard({ auth, tasks = [] }) {
 
                                 {/* Tâches complétées */}
                                 {completedTasks.length > 0 && (
-                                    <div className="mt-8">
-                                        <h3 className="text-xl font-semibold text-green-600 mb-4">
+                                    <div className="mt-6 sm:mt-8">
+                                        <h3 className="text-lg sm:text-xl font-semibold text-green-600 mb-3 sm:mb-4">
                                             ✓ Tâches complétées aujourd'hui
                                         </h3>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
                                             {completedTasks.map(task => (
                                                 <TaskCard key={task.id} task={task} onEdit={handleEditTask} />
                                             ))}

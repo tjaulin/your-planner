@@ -45,12 +45,12 @@ export default function EditTaskModal({ task, show, onClose }) {
 
     return (
         <Modal show={show} onClose={onClose} maxWidth="2xl">
-            <form onSubmit={handleSubmit} className="p-6">
-                <h2 className="text-2xl font-semibold text-mauve-700 mb-6">
+            <form onSubmit={handleSubmit} className="p-4 sm:p-6">
+                <h2 className="mb-4 sm:mb-6 text-xl sm:text-2xl font-semibold text-mauve-700">
                     ✏️ Modifier la tâche
                 </h2>
 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                     <div>
                         <InputLabel htmlFor="title" value="Titre" />
                         <TextInput
@@ -76,7 +76,7 @@ export default function EditTaskModal({ task, show, onClose }) {
                         />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div>
                             <InputLabel htmlFor="category" value="Catégorie" />
                             <select
@@ -107,7 +107,7 @@ export default function EditTaskModal({ task, show, onClose }) {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div>
                             <InputLabel htmlFor="start_date" value="Date de début" />
                             <TextInput
@@ -147,18 +147,18 @@ export default function EditTaskModal({ task, show, onClose }) {
                     </div>
                 </div>
 
-                <div className="flex justify-end space-x-3 mt-6">
+                <div className="flex flex-col sm:flex-row justify-end mt-4 sm:mt-6 gap-2 sm:gap-0 sm:space-x-3">
                     <button
                         type="button"
                         onClick={onClose}
-                        className="btn-ghost"
+                        className="btn-ghost w-full sm:w-auto order-2 sm:order-1"
                         disabled={processing}
                     >
                         Annuler
                     </button>
                     <button
                         type="submit"
-                        className="btn-primary"
+                        className="btn-primary w-full sm:w-auto order-1 sm:order-2"
                         disabled={processing}
                     >
                         {processing ? 'Mise à jour...' : 'Mettre à jour 💜'}

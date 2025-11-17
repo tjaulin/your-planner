@@ -29,12 +29,12 @@ export default function AddTaskModal({ show, onClose }) {
 
     return (
         <Modal show={show} onClose={onClose} maxWidth="2xl">
-            <form onSubmit={handleSubmit} className="p-6">
-                <h2 className="mb-6 text-2xl font-semibold text-mauve-700">
+            <form onSubmit={handleSubmit} className="p-4 sm:p-6">
+                <h2 className="mb-4 text-xl font-semibold sm:mb-6 sm:text-2xl text-mauve-700">
                     ✨ Ajouter une nouvelle tâche
                 </h2>
 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                     <div>
                         <InputLabel htmlFor="title" value="Titre" />
                         <TextInput
@@ -60,7 +60,7 @@ export default function AddTaskModal({ show, onClose }) {
                         />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
                         <div>
                             <InputLabel htmlFor="category" value="Catégorie" />
                             <select
@@ -91,7 +91,7 @@ export default function AddTaskModal({ show, onClose }) {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
                         <div>
                             <InputLabel htmlFor="start_date" value="Date de début" />
                             <TextInput
@@ -131,18 +131,18 @@ export default function AddTaskModal({ show, onClose }) {
                     </div>
                 </div>
 
-                <div className="flex justify-end mt-6 space-x-3">
+                <div className="flex flex-col justify-end gap-2 mt-4 sm:flex-row sm:mt-6 sm:gap-0 sm:space-x-3">
                     <button
                         type="button"
                         onClick={onClose}
-                        className="btn-ghost"
+                        className="order-2 w-full btn-ghost sm:w-auto sm:order-1"
                         disabled={processing}
                     >
                         Annuler
                     </button>
                     <button
                         type="submit"
-                        className="btn-primary"
+                        className="order-1 w-full btn-primary sm:w-auto sm:order-2"
                         disabled={processing}
                     >
                         {processing ? 'Création...' : 'Créer la tâche 💜'}

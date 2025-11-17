@@ -49,9 +49,15 @@ export default function CalendarView({ tasks, onDateClick, onEventClick }) {
                 {`
                     .calendar-container {
                         background: white;
-                        padding: 1.5rem;
+                        padding: 0.75rem;
                         border-radius: 1rem;
                         box-shadow: 0 4px 6px -1px rgba(200, 162, 200, 0.1);
+                    }
+
+                    @media (min-width: 640px) {
+                        .calendar-container {
+                            padding: 1.5rem;
+                        }
                     }
 
                     .fc {
@@ -62,6 +68,15 @@ export default function CalendarView({ tasks, onDateClick, onEventClick }) {
                         background-color: #C8A2C8;
                         border-color: #C8A2C8;
                         color: white;
+                        font-size: 0.75rem;
+                        padding: 0.25rem 0.5rem;
+                    }
+
+                    @media (min-width: 640px) {
+                        .fc .fc-button-primary {
+                            font-size: 0.875rem;
+                            padding: 0.4rem 0.75rem;
+                        }
                     }
 
                     .fc .fc-button-primary:hover {
@@ -73,6 +88,16 @@ export default function CalendarView({ tasks, onDateClick, onEventClick }) {
                     .fc .fc-button-primary:not(:disabled):active {
                         background-color: #A080A0;
                         border-color: #A080A0;
+                    }
+
+                    .fc .fc-toolbar-title {
+                        font-size: 1rem;
+                    }
+
+                    @media (min-width: 640px) {
+                        .fc .fc-toolbar-title {
+                            font-size: 1.5rem;
+                        }
                     }
 
                     .fc-theme-standard td,
@@ -88,6 +113,13 @@ export default function CalendarView({ tasks, onDateClick, onEventClick }) {
                         cursor: pointer;
                         border-radius: 0.375rem;
                         padding: 2px 4px;
+                        font-size: 0.75rem;
+                    }
+
+                    @media (min-width: 640px) {
+                        .fc-event {
+                            font-size: 0.875rem;
+                        }
                     }
 
                     .fc-event:hover {
@@ -97,11 +129,42 @@ export default function CalendarView({ tasks, onDateClick, onEventClick }) {
                     .fc .fc-daygrid-day-number {
                         color: #6B7280;
                         font-weight: 500;
+                        font-size: 0.75rem;
+                        padding: 2px;
+                    }
+
+                    @media (min-width: 640px) {
+                        .fc .fc-daygrid-day-number {
+                            font-size: 0.875rem;
+                            padding: 4px;
+                        }
                     }
 
                     .fc .fc-col-header-cell-cushion {
                         color: #C8A2C8;
                         font-weight: 600;
+                        font-size: 0.75rem;
+                        padding: 4px 2px;
+                    }
+
+                    @media (min-width: 640px) {
+                        .fc .fc-col-header-cell-cushion {
+                            font-size: 0.875rem;
+                            padding: 8px 4px;
+                        }
+                    }
+
+                    /* Simplifier la toolbar sur mobile */
+                    @media (max-width: 639px) {
+                        .fc .fc-toolbar {
+                            flex-direction: column;
+                            gap: 0.5rem;
+                        }
+
+                        .fc .fc-toolbar-chunk {
+                            display: flex;
+                            justify-content: center;
+                        }
                     }
                 `}
             </style>
@@ -110,9 +173,9 @@ export default function CalendarView({ tasks, onDateClick, onEventClick }) {
                 initialView="dayGridMonth"
                 locale={frLocale}
                 headerToolbar={{
-                    left: 'prev,next today',
+                    left: 'prev,next',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,listWeek',
+                    right: 'today dayGridMonth,listWeek',
                 }}
                 events={events}
                 dateClick={handleDateClick}
@@ -127,6 +190,8 @@ export default function CalendarView({ tasks, onDateClick, onEventClick }) {
                     week: 'Semaine',
                     list: 'Liste',
                 }}
+                dayMaxEvents={2}
+                moreLinkText={(num) => `+${num}`}
             />
         </div>
     );
