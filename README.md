@@ -18,8 +18,6 @@
 
 - [Robust background job processing](https://laravel.com/docs/queues).
 
-Conçue avec amour pour Sara 💕- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
 
 
 ---Laravel is accessible, powerful, and provides tools required for large, robust applications.
@@ -316,7 +314,7 @@ Ce projet est sous licence MIT.
 
 ## 💜 Créé avec amour
 
-Développé avec soin pour accompagner Sara dans son quotidien.
+Développé avec soin pour accompagner les gens dans leur quotidien.
 
 *"Ta valeur ne dépend pas de ta productivité"* ✨
 
