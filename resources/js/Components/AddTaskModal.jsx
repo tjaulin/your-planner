@@ -10,6 +10,10 @@ export default function AddTaskModal({ show, onClose }) {
     const todayDate = now.toISOString().split('T')[0];
     const currentTime = now.toTimeString().slice(0, 5);
 
+    // Calculer l'heure de fin (1h plus tard)
+    const endTimeDate = new Date(now.getTime() + 60 * 60 * 1000); // Ajouter 1 heure en millisecondes
+    const endTime = endTimeDate.toTimeString().slice(0, 5);
+
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
         description: '',
@@ -19,7 +23,7 @@ export default function AddTaskModal({ show, onClose }) {
         start_date: todayDate,
         start_time: currentTime,
         due_date: todayDate,
-        end_time: currentTime,
+        end_time: endTime,
         all_day: false,
         recurrence: 'Aucune',
     });
